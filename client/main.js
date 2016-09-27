@@ -20,7 +20,7 @@ let polls = [
         votes: 7
       }  
     ],
-    totalViews : 12,
+    totalVotes : 12,
     author : 'Gil',
     createdAt : new Date()
   },
@@ -39,7 +39,7 @@ let polls = [
           votes: 10
       }  
     ],
-    totalViews : 15,
+    totalVotes : 15,
     author : 'Peter',
     createdAt : new Date()
   }
@@ -48,3 +48,5 @@ let polls = [
 Meteor.startup(() => {
   render(<App polls={polls}/>, document.getElementById('render-target'));
 });
+
+

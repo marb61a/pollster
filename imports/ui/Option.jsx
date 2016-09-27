@@ -18,6 +18,7 @@ export default class Option extends Component{
     
     renderOptions(){
         let options = this.props.options;
+        const style = {fill:'grey'};
         return options.map((option) => {
             <div className="option-item" key={option.index}>
                 <span className="badge badge-votes pull-right">
@@ -47,5 +48,5 @@ export default class Option extends Component{
 }
 
 Option.propTypes = {
-    options : PropTypes.Array.isRequired
+    options : PropTypes.array.isRequired
 };

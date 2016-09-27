@@ -13,7 +13,7 @@ export default class Polls extends Component{
     }
 }
 
-App.propTypes = {
+Polls.propTypes = {
     polls : PropTypes.array.isRequired    
 };
 

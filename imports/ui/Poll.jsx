@@ -23,5 +23,5 @@ export default class Poll extends Component{
 }
 
 Poll.propTypes = {
-    polls : PropTypes.object.isRequired
+    poll : PropTypes.object.isRequired
 };
