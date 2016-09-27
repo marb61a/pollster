@@ -2,6 +2,20 @@ import React, { Component, PropTypes } from 'react';
 
 
 export default class Option extends Component{
+    perc(votes){
+        const totalVotes = this.props.totalVotes;
+        let options = this.props.options;
+        let maxValue = 0;
+        
+        options.forEach(function(el){
+            if(el.votes > maxValue)
+                maxValue = el.votes;
+        });
+        let perc = 100*votes/maxValue;
+        if(perc == undefined) perc = 0;
+        return perc + "%";
+    }
+    
     renderOptions(){
         let options = this.props.options;
         return options.map((option) => {
@@ -10,6 +24,10 @@ export default class Option extends Component{
                     {option.votes}
                 </span>
                 <div className="bar">
+                    <svg className="svg" width="100%" height="25">
+                        <rect className="rec-bgd" width="100%" height="100%"  />
+                        <rect className="rec" style={style} width={this.perc(option.votes)} height="100%"  />
+                    </svg>
                     <span className="option">
                         {option.option}
                     </span>
