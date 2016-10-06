@@ -26,6 +26,22 @@ Meteor.startup(() => {
                 options.push(option);
             }
             return options;
-        }
+        },
+        author : function(){
+            const userIds = ['Gil', 'Peter', 'Eva'];
+            return Random.choice(userIds);    
+        },
+        createdAt : function(){
+            return new Date() - _.random(1, 15)*1000*60*60*24;    
+        },
+        totalVotes : function(){
+            return totalVotes;    
+        },
     });
+    
+    if(PollsData.find({}).count() === 0){
+        _(nPolls).times(function(n){
+            Factory.create('poll');
+        });
+    }
 });
