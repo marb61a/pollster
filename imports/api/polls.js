@@ -14,4 +14,6 @@ Meteor.methods({
 			_id:id
 		});
     }
-})
+});
+
+export default PollsData;
