@@ -1,11 +1,12 @@
 import React from 'react'
 
-export const MainLayout = ({header, content, footer}) => {
+export const MainLayout = ({header, content, footer}) => (
     <div className="site">
-        { header }
+        {header}
         <div className="main-layout site-content">
-            { content }
+            {content}
         </div>
         {footer}
-    </div>;
-};
+    </div>
+);
+

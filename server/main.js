@@ -5,7 +5,7 @@ Meteor.startup(() => {
     const nPolls = 100;
     let totalVotes;
     
-    Factory.define('polls', PollsData, {
+    Factory.define('poll', PollsData, {
         question : function(){
             return Fake.sentence() + "?";
         },
