@@ -1,8 +1,28 @@
 import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
 
 import Option from "./Option.jsx";
 
 export default class Poll extends Component{
+    deletePoll(){
+        const currentPollId = this.props.poll._id;
+        swal({
+            title: "Are you sure you want to delete this poll?",
+            text: "You will not be able to recover this if you do so",
+            type: "warning",
+            showCancelButton: true,
+            ConfirmButtonColor: "#DD6B55",
+            confrimButoonText: "Yes, delete it!",
+            closeOnConfirm: true,
+            html: false
+        }, 
+        function(isConfirm){
+            if(isConfirm){
+                Meteor.call("deletePoll", currentPollId);
+            }
+        });
+    }
+    
     formatDate(date){
         return moment(date).fromNow();
     }
@@ -15,7 +35,7 @@ export default class Poll extends Component{
                     <span className="pull-right icons">
                         <a href="#"><i className="fa fa-eye view-poll"></i></a>
                         <a href="#"><i className="fa fa-pencil edit-poll"></i></a>
-                        <a href="#"><i className="fa fa-trash-o delete-poll" ></i></a>
+                        <a href="#" onClick={this.deletePoll.bind(this)}><i className="fa fa-trash-o delete-poll" ></i></a>
                     </span>
                 </div>
                 <div className="panel-body">
