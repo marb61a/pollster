@@ -23,7 +23,7 @@ export default class App extends TrackerReact(Component){
     }
     
     pollsData(){
-        Meteor.subscribe('polls', {sort: {createdAt: -1}, limit: POLLS_PER_PAGE * pageNumber.get()})
+        Meteor.subscribe('polls', {sort: {createdAt: -1}, limit: POLLS_PER_PAGE * pageNumber.get()});
         return PollsData.find({}, {sort: {createdAt: -1}, limit: POLLS_PER_PAGE * pageNumber.get()}).fetch();
     }
     

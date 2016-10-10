@@ -1,11 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Masonry from "react-masonry-component";
 
 import Poll from "./Poll.jsx";
 
-const masonryOptions = {
-    transitionDuration : 0
-};
 
 export default class Polls extends Component{
     render(){
@@ -15,9 +11,7 @@ export default class Polls extends Component{
         
         return(
             <div className="polls">
-                <Masonry className="gallery" options={masonryOptions} disableImagesLoaded={false}>
-                    {childElements}
-                </Masonry>
+                {childElements}
             </div>  
         );
     }
