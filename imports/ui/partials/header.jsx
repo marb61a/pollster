@@ -24,6 +24,11 @@ export default class Header extends Component{
             this.setState({open:true});
     }
     
+    closeMenu(){
+        if(this.state.open)
+            this.setState({open:false});
+    }
+    
     render(){
         return(
             <div className="header">
@@ -32,13 +37,18 @@ export default class Header extends Component{
                         <div className="nav-item header-logo">
                             <h1>Cool Polls</h1>
                         </div>
-                        <div className="nav-item">
-                            <a href="/" ><i className="fa fa-home"></i> Home</a>    
+                    </div>
+                    <div className="header-section header-links">
+                        <div className="nav-item toggle-nav" onClick={this.showMenu.bind(this)}>
+                            <a href="#" ><i className="fa fa-bars"></i> Menu</a>
                         </div>
-                        <div className="nav-item">
+                        <div className={this.classes("/")} onClick={this.closeMenu.bind(this)}>
+                            <a href="/" ><i className="fa fa-home"></i> Home</a>
+                        </div>
+                        <div className={this.classes("/polls")} onClick={this.closeMenu.bind(this)}>
                             <a href="/polls" ><i className="fa fa-list"></i> Polls</a>
                         </div>
-                        <div className="nav-item">
+                        <div className={this.classes("/newPoll")} onClick={this.closeMenu.bind(this)}>
                             <a href="/newPoll" ><i className="fa fa-plus-circle"></i> New Poll</a>
                         </div>
                     </div>
@@ -47,3 +57,7 @@ export default class Header extends Component{
         );
     }
 }
+
+
+
+            
