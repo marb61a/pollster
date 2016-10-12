@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-
 import Poll from "./Poll.jsx";
-
 
 export default class Polls extends Component{
     render(){
@@ -21,4 +19,3 @@ export default class Polls extends Component{
 Polls.propTypes = {
     polls : PropTypes.array.isRequired    
 };
-
