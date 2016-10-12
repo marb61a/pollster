@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
+
 import Poll from "./Poll.jsx";
 
 
