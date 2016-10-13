@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import classNames from 'classnames';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 export default class Header extends Component{
     constructor(props){
@@ -17,6 +18,26 @@ export default class Header extends Component{
         return menuClass;
     }
     
+    logoutClasses(){
+        let menuClass = classNames(this.props.className, {
+            'dropdown-menu': true,
+            'open': this.state.toggle
+        });
+        
+        return menuClass;
+    }
+    
+    accountClasses(path){
+        let menuClass = classNames(this.props.className, {
+            'nav-item' : true,
+            'account-item' : true,
+            'open' : true,
+            'active': ActiveRoute.path(path)
+        });
+        
+        return menuClass;
+    }
+    
     showMenu(){
         if(this.state.open)
             this.setState({open:false});
@@ -28,6 +49,22 @@ export default class Header extends Component{
         if(this.state.open)
             this.setState({open:false});
     }
+    
+    dropDownToggle(){
+        if(this.state.toggle) 
+            this.setState({toggle: false});
+        else
+            this.setState({toggle: true});
+    }
+    
+    logout(e){
+        e.preventDefault();
+        this.dropDownToggle();
+        Meteor.logout();
+        FlowRouter.go('/');
+    }
+    
+    
     
     render(){
         return(
