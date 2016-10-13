@@ -1,6 +1,12 @@
 import { Meteor } from 'meteor/meteor';
 import PollsData from '/imports/api/polls.js';
 
+Accounts.config({
+    sendVerificationEmail : false,
+    forbidClientAccountCreation: false,
+    loginExpirationInDays: null
+});
+
 Meteor.startup(() => {
     const nPolls = 100;
     let totalVotes;
