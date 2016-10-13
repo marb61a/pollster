@@ -64,37 +64,82 @@ export default class Header extends Component{
         FlowRouter.go('/');
     }
     
+    isLoggedNav(){
+        if(Meteor.user()){
+            return(
+                <div className="header-section header-links">
+                    <div className="nav-item toggle-nav" onClick={this.showMenu.bind(this)}>
+                        <a href="#" ><i className="fa fa-bars"></i> Menu</a>
+                    </div>
+                    <div className={this.classes("/")} onClick={this.closeMenu.bind(this)}>
+                        <a href="/" ><i className="fa fa-home"></i> Home</a>
+                    </div>
+                    <div className={this.classes("/polls")} onClick={this.closeMenu.bind(this)}>
+                        <a href="/polls" ><i className="fa fa-list"></i> Polls</a>
+                    </div>
+                    <div className={this.classes("/newPoll")} onClick={this.closeMenu.bind(this)}>
+                        <a href="/newPoll" ><i className="fa fa-plus-circle"></i> New Poll</a>
+                    </div>
+                </div>
+            );   
+        } else {
+            return(
+                <div className="header-section header-links">
+                    <div className="nav-item toggle-nav" onClick={this.showMenu.bind(this)}>
+                        <a href="#" ><i className="fa fa-bars"></i> Menu</a>
+                    </div>
+                    <div className={this.classes("/")} onClick={this.closeMenu.bind(this)}>
+                        <a href="/" ><i className="fa fa-home"></i> Home</a>
+                    </div>
+                </div>
+            );
+        }
+    }
     
+    loginNav(){
+        if(Meteor.user()){
+            return(
+                <ul className="nav-login ">
+                    <li className="dropdown">
+                        <a href="#" className="dropdown-toggle" onClick={this.dropDownToggle.bind(this)}>
+                            <i className="fa fa-user"></i> {Meteor.user().username} <i className="fa fa-caret-down"></i>
+                        </a>
+                        <ul className={this.logoutClasses()} >
+                            <li><a href="#" onClick={this.logout.bind(this)}><i className="fa fa-lock"></i> Sign Out</a></li>
+                        </ul>
+                    </li>
+                </ul>        
+            );   
+        } else {
+            return(
+                <div className="header-section header-login">
+                    <div className={this.accountClasses("/register")} onClick={this.closeMenu.bind(this)}>
+                        <a href="/register"> Register</a>
+                    </div>
+                    <div className={this.accountClasses("/login")} onClick={this.closeMenu.bind(this)}>
+                        <a href="/login"> Login</a>
+                    </div>
+                </div>  
+            );
+        }
+    }
     
     render(){
         return(
             <div className="header">
                 <nav className="flex-nav">
-                    <div className="header-section">
+                    <div className="header-section"> 
                         <div className="nav-item header-logo">
                             <h1>Cool Polls</h1>
                         </div>
                     </div>
-                    <div className="header-section header-links">
-                        <div className="nav-item toggle-nav" onClick={this.showMenu.bind(this)}>
-                            <a href="#" ><i className="fa fa-bars"></i> Menu</a>
-                        </div>
-                        <div className={this.classes("/")} onClick={this.closeMenu.bind(this)}>
-                            <a href="/" ><i className="fa fa-home"></i> Home</a>
-                        </div>
-                        <div className={this.classes("/polls")} onClick={this.closeMenu.bind(this)}>
-                            <a href="/polls" ><i className="fa fa-list"></i> Polls</a>
-                        </div>
-                        <div className={this.classes("/newPoll")} onClick={this.closeMenu.bind(this)}>
-                            <a href="/newPoll" ><i className="fa fa-plus-circle"></i> New Poll</a>
-                        </div>
-                    </div>
+                    {this.isLoggedNav()}
+                    {this.loginNav()}
                 </nav>
-            </div>    
+            </div>
         );
     }
 }
 
 
-
-            
+    
