@@ -12,32 +12,39 @@ import ChangePassword from '../imports/ui/partials/changePassword.jsx';
 import ResetPassword from '../imports/ui/partials/resetPassword.jsx';
 
 FlowRouter.route('/', {
-    name : 'home',
-    action(){
-        mount(MainLayout, {
+    name: 'home',
+    action() {
+    mount(MainLayout, {
             header: (<Header />),
-            content: (<Home />)
+            content: (<Home />),
+            footer: (<Footer />)
         });
     }
 });
 
 FlowRouter.route('/polls', {
-    name : 'polls',
-    action(){
-        mount(MainLayout, {
-            header: (<Header />),
-            content: (<App />)
-        });
+    name: 'polls',
+    action() {
+        if(Meteor.userId()) {
+            mount(MainLayout, {
+                header: (<Header />),
+                content: (<App />),
+                footer: (<Footer />)
+            });
+        } else FlowRouter.go('home');
     }
 });
 
 FlowRouter.route('/newPoll', {
-    name: 'newPoll',
+  name: 'newPoll',
     action() {
-        mount(MainLayout, {
-            header: (<Header />),
-            content: (<NewPoll />)
-        });
+        if(Meteor.userId()) {
+            mount(MainLayout, {
+                header: (<Header />),
+                content: (<NewPoll />),
+                footer: (<Footer />)
+            });
+        } else FlowRouter.go('home');
     }
 });
 
