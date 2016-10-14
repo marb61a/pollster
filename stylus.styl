@@ -15,20 +15,38 @@ trans($sec = 0.3s)
 
 html
     box-sizing border-box
-    font-size 16px//responsive 12px 21px
-    font-range 420px 1280px
+    font-size 16px
+    //font-range 420px 1280px
+    //font-family Helvetica, Arial, sans-serif
 
 *, *:before, *:after
     box-sizing: inherit
 
 z = {
-    lowest: 1
+    lowest: 1,
+    header: 7
 }
 
 $large = 960px
 $very-small = 350px
 
 $content-top-normal = 60px
+
+.site
+  display flex
+  min-height 100vh
+  flex-direction column
+
+.site-content
+  flex 1
+
+.footer
+  color #ddd
+  background: #0B485C
+  margin 0
+  width 100%
+  padding 10px
+  z-index: z.header
 
 .header
   fixed top left
@@ -38,7 +56,7 @@ $content-top-normal = 60px
   shadow-level(2)
   clearfix()
 
-.flex-nav
+  .flex-nav
     display flex
     justify-content space-between
     background-color #357185
@@ -63,32 +81,33 @@ $content-top-normal = 60px
     align-items center
     +below($large)
        flex-direction column
-       &.header-login
-         height 50px
-         padding-top 15px
+       &.header-links
+          align-items flex-end
+     &.header-login
+       height 50px
+         //padding-top 15px
      &.header-links
        flex 1 1
 
-
-.nav-item
-  text-align center
-  height 50px
-  padding 15px 15px 0 15px
-  margin-right 10px
-  font-size 1.2em
-  a
-    &:link
-      text-decoration none
-      color white
-    &:hover
-      color #ddd
-      text-decoration none
-    &:visited
-      color white
-      text-decoration none
-    &:active
-      color white
-      text-decoration none
+  .nav-item
+    text-align center
+    height 50px
+    padding 15px 15px 0 15px
+    margin-right 10px
+    font-size 1.2em
+    a
+      &:link
+        text-decoration none
+        color white
+      &:hover
+        color #ddd
+        text-decoration none
+      &:visited
+        color white
+        text-decoration none
+      &:active
+        color white
+        text-decoration none
     &:hover
       background rgba(0,0,0,0.2)
       a
@@ -96,11 +115,53 @@ $content-top-normal = 60px
     &.active
       background rgba(0,0,0,0.3)
 
-.header-logo
-  &:hover
-    background rgba(0,0,0,0)
-  &.active
-    background rgba(0,0,0,0)
+    +below($large)
+      display none
+      &.open
+        display block
+
+    &.toggle-nav
+      display none
+      +below($large)
+        display block
+        color #fff
+        font-size 1.4em
+        text-align right
+      +below($very-small)
+        font-size 1.2em
+
+  .header-logo
+    &:hover
+      background rgba(0,0,0,0)
+    &.active
+      background rgba(0,0,0,0)
+    display block
+
+.nav-login
+  list-style none
+  min-width 130px
+  text-align right
+  .dropdown
+    a
+      color lightgrey
+  +below($large)
+    display none
+
+
+.dropdown-menu
+  list-style none
+  display none
+  position absolute
+  margin-top 17px
+  shadow-level(2)
+  z-index: z.nav
+  padding 10px
+  background-color #357185
+  a
+    color lightgrey
+    text-decoration: none;
+  &.open
+    display block
 
 .main-layout
   lost-center 90%
@@ -122,7 +183,6 @@ $content-top-normal = 60px
 .polls
   display flex
   flex-flow row wrap
-  justify-content flex-start
 
 .poll
     flex 1 1 380px
@@ -146,17 +206,16 @@ $content-top-normal = 60px
       flex-grow 0
 
     h3
-      font-size: 1.2em;
-      opacity: 0.7;
-      width 80%
-      margin 2px
+        font-size 1.2em
+        opacity 0.7
+        width 80%
+        margin 2px
 
     .question
       margin-top 0
       margin-bottom 10px
       padding-bottom 5px
       border-bottom: rgba(0,0,0, 0.2) solid 2px
-      
     button
         margin-top 20px
 
@@ -214,7 +273,7 @@ $content-top-normal = 60px
     &:hover
         shadow-level(3)
         animation card 0.6s ease 1 forwards
-        
+
     .icons
       cursor pointer
       position absolute
@@ -232,5 +291,66 @@ $content-top-normal = 60px
           color red
           opacity 0.6
 
-.gallery
-  margin 20px
+.btn, button
+  margin-top 10px
+  cursor pointer
+  background #524763
+  hover-darken 50%
+  color #FFF
+  text-decoration none
+  text-transform uppercase
+  padding 5px 15px
+  border-radius 2px
+  font-weight 800
+  &.btn-more
+    width 100%
+
+.signin
+  width 100%
+  min-width 300px
+  max-width 600px
+  background #FFF
+  padding 5px 20px 10px 20px
+  margin auto
+  position relative
+  z-index 1
+  shadow-level(1)
+  trans()
+  h2
+    font-size: 1.4em;
+    opacity: 0.7;
+    width 100%
+    margin 2px 0 10px 0
+    border-bottom: rgba(0,0,0, 0.2) solid 2px
+  &:hover
+    shadow-level(3)
+    animation card 0.6s ease 1 forwards
+
+.register, .signin
+  .field
+    padding 4px
+    margin 1px
+    width 100%
+    label
+      display block
+      width 100%
+      font-weight 700
+      &.error
+        color red
+        font-weight 400
+        trans()
+    input
+      display block
+      padding 5px
+      border 1px solid #ccc
+      border-radius 0px
+      width 90%
+  div.buttons
+    a
+      padding-left 10px
+
+  div.message
+    color red
+    font-weight 400
+    padding-top 7px
+    trans()
