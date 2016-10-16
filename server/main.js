@@ -8,6 +8,22 @@ Accounts.config({
 });
 
 Meteor.startup(() => {
+    const nUsers = 10;
+    if(Meteor.users.find().count() === 0){
+        for (let i = 0; i < nUsers; i++) {
+            let user = Fake.user({
+                fields : [
+                    'username',
+                    'email',
+                    'profile.name'    
+                ]
+            });
+            user.password = 'password';
+            
+            id = Accounts.createUser(user);
+        }
+    }
+    
     const nPolls = 100;
     let totalVotes;
     
@@ -34,8 +50,9 @@ Meteor.startup(() => {
             return options;
         },
         author : function(){
-            const userIds = ['Gil', 'Peter', 'Eva'];
-            return Random.choice(userIds);    
+            const userIds = _.pluck(Meteor.users.find().fetch(), '_id');
+            const userId = Random.choice(userIds);
+            return Meteor.users.findOne(userId).username;   
         },
         createdAt : function(){
             return new Date() - _.random(1, 15)*1000*60*60*24;    
