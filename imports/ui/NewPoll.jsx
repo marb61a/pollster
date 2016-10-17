@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 import NewPollOption from './NewPollOptions.jsx'
 import OptionsData from '/imports/api/newPollOptions.js';
@@ -20,8 +21,30 @@ export default class NewPoll extends Component{
         });
     }
     
+    addNewOption(e){
+        e.preventDefault();
+        const option = "";
+        const index = OptionsData.find().count();
+        this.addOption(option, index);
+        console.log(OptionsData.find({},{
+            sort: {index: 1}
+        }).fetch());
+    }
+    
     addNewPoll(e){
-        
+        e.preventDefault();
+        const poll = {
+            question : this.refs.questionInput.value.trim(),
+            options: ""//options
+        };
+        const id = Meteor.call("polls.insertPoll", poll, function(error, result){
+            if(error){
+                console.log(error);
+            } else{
+                console.log("id from insert " + result);
+                console.log();
+            }
+        });
     }
     
     render(){
@@ -34,7 +57,17 @@ export default class NewPoll extends Component{
                 <div>
                     <h1 className="new-poll-title">Create New Poll</h1>
                 </div>
-                <div>
+                <div className="new-poll">
+                    <form className="form" onSubmit={this.addNewPoll.bind(this)} id="addPoll">
+                        <div className="controls">
+                            <input className="questionInput"  ref="questionInput" type="text" placeholder="Enter Your Question" />
+                            {options}
+                            <button className="add-option " onClick={this.addNewOption.bind(this)}>
+                                <i className="fa fa-plus-square"></i>
+                            </button>
+                        </div>
+                        <input type="submit" className="btn" value="Create Poll"/>
+                    </form>
                 </div>
             </div>    
         );
