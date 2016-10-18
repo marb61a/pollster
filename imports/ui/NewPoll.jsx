@@ -1,10 +1,43 @@
 import React, {Component, PropTypes} from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import classNames from 'classnames';
 
 import NewPollOption from './NewPollOptions.jsx'
 import OptionsData from '/imports/api/newPollOptions.js';
 
+const MAX_OPTIONS = 8;
+
 export default class NewPoll extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            subscription : {
+                optionsData: Meteor.subscribe(null)
+            },
+            hidden : false
+        };
+    }
+    
+    addOptionClasses(){
+        let addOptionClasses = classNames(this.props.className, {
+            'add-option' : true,
+            'hidden' : this.hideAddOption()
+        });
+        
+        console.log("addOptionClasses "+addOptionClasses);
+        return addOptionClasses;
+    }
+    
+    hideAddOption(){
+        if(OptionsData.find().count() >= MAX_OPTIONS){
+            Bert.alert( 'You have reached the maximum number of options for this poll', 'info', 'growl-top-right' );
+            
+            return true;
+        }   
+        
+        return false;
+    }
+    
     getOptions(){
         if(OptionsData.find().count() < 2){
             this.addOption("", 0);
@@ -49,7 +82,7 @@ export default class NewPoll extends Component{
     
     render(){
         const options = this.getOptions().map((option) => {
-            return <NewPollOption option={option} key={option.index}/>;
+            return <NewPollOption option={option} key={option._id}/>;
         });
         
         return(
