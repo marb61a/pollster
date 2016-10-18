@@ -26,6 +26,19 @@ export default class NewPollOption extends Component {
         return false;
     }
     
+    onOptionChange(event){
+        let id = this.props.option._id;
+        console.log("ref "+this.props.option.index+" id "+id);
+        let option = event.target.value;
+        this.value = option;
+        OptionsData.update(id, {$set: {option: option}}, function(error, result){
+            console.log(OptionsData.find({}, {sort: {index: 1}}).fetch());
+            if(error){
+                alert.error(error.reason);
+            }
+        });
+    }
+    
     deleteOption(e){
         e.preventDefault();
         const id = this.props.option._id;
@@ -35,7 +48,11 @@ export default class NewPollOption extends Component {
     render(){
         return(
             <div className="input-option">
-            
+                <input type="text" className="optionInput" defaultValue={this.props.option.option}
+                onChange={this.onOptionChange.bind(this)} placeholder="Enter option" />
+                <a href="#" className={this.removeOptionClasses()} onClick={this.deleteOption.bind(this)}>
+                    <i className="fa fa-minus-square"></i>
+                </a>
             </div>  
         );
     }
