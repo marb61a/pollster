@@ -354,3 +354,67 @@ $content-top-normal = 60px
     font-weight 400
     padding-top 7px
     trans()
+    
+  .new-poll
+  width 95%
+  max-width 800px
+  min-width 300px
+  background #fff
+  padding 0 20px 20px
+  margin-bottom 20px
+  position relative
+  z-index 1
+  shadow-level(2)
+  trans()
+  h3
+    font-size: 1.2em;
+    opacity: 0.7;
+    width 80%
+    margin 2px
+  .questionInput
+    font-size: 1.4em;
+    width 100%
+    padding 5px
+    margin-top 5px
+    margin-bottom 5px
+    border none
+    font-weight 600
+  .optionInput
+    flex 1 1 88%
+    border none
+    font-size 1.2em
+    background-color rgba(178,207,217, 0.6)
+    margin-bottom 3px
+    padding 5px
+    margin-right 15px
+
+  h1.new-poll-title
+    color #888
+    
+  .add-option
+  width 100%
+  border-radius 0
+  border none
+  box-shadow none
+  background orange
+  font-size 24px
+  padding 0
+  hover-darken 30%
+  &.hidden
+    display none
+
+
+.remove-option
+  flex 0 0 25px
+  font-size 1.8em
+  padding-left 3px
+  color orange
+  margin-right 0
+  hover-darken 30%
+  &.hidden
+    display none  
+
+.input-option
+  display flex
+  vertical-align: middle
+  width 100%
