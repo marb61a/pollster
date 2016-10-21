@@ -23,8 +23,43 @@ export default class Poll extends Component{
         });
     }
     
+    viewPoll(){
+        const currentPollId = this.props.poll._id;
+        FlowRouter.go("/viewPoll/"+currentPollId);
+    }
+    
+    editPoll(){
+        const currentPollId = this.props.poll._id;
+        FlowRouter.go("/editPoll/"+currentPollId);
+    }
+    
+    allowEdit(){
+        if(this.props.poll.totalVotes === 0)
+        return(
+            <a href="#" onClick={this.editPoll.bind(this)}>
+                <i className="fa fa-pencil edit-poll"></i>
+            </a>  
+        );
+    }
+    
     formatDate(date){
         return moment(date).fromNow();
+    }
+    
+    showIcons(){
+        if(this.props.poll.author === Meteor.userId()){
+            return(
+                <span className="pull-right icons">
+                    <a href="#" onClick={this.viewPoll.bind(this)}>
+                        <i className="fa fa-eye view-poll"></i>
+                    </a>
+                    {this.allowEdit()}
+                    <a href="#" onClick={this.deletePoll.bind(this)}>
+                        <i className="fa fa-trash delete-poll"></i>
+                    </a>
+                </span>  
+            );
+        }
     }
     
     render(){
@@ -33,11 +68,7 @@ export default class Poll extends Component{
                 <div className="card-section">
                     <div className="question">
                         <h3 className="">{this.props.poll.question}</h3>
-                        <span className="pull-right icons">
-                            <a href="#"><i className="fa fa-eye view-poll"></i></a>
-                            <a href="#"><i className="fa fa-pencil edit-poll"></i></a>
-                            <a href="#" onClick={this.deletePoll.bind(this)}><i className="fa fa-trash-o delete-poll" ></i></a>
-                        </span>
+                        {this.showIcons()}
                     </div>
                     <div className="panel-body">
                         <Option options={this.props.poll.options} key={this.props.poll.options.index}/>
