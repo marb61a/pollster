@@ -3,14 +3,17 @@ import { Mongo } from 'meteor/mongo';
 const PollsData = new Mongo.Collection('polls');
 
 const pollOptionsSchema = new SimpleSchema({
+    id : {
+        type : String  
+    },
     index: {
-        type: Number
+        type : Number
     },
     option: {
-        type: String
+        type : String
     },
-    votes: {
-        type: Number,
+    votes : {
+        type : Number,
         defaultValue: 0
     }
 });
@@ -23,7 +26,7 @@ const pollsSchema = new SimpleSchema({
         type : [pollOptionsSchema]
     },
     author : {
-        type: String,
+        type : String,
         autoValue: function() {
             if (this.isInsert) {
                 return this.userId;
@@ -54,25 +57,36 @@ PollsData.attachSchema(pollsSchema);
 
 if(Meteor.isServer){
     Meteor.methods({
-        insertPoll(data){
+        'polls.insertPoll'(data){
             if(!this.userId)
   			    throw new Meteor.Error('unauthorized');
-            const pollId = PollsData.insert(data);
-            return pollId;
+  			const pollId = PollsData.insert(data);
+  			return pollId;
         },
         
-        deletePoll(id){
+        'polls.deletePoll'(id){
             if(!this.userId)
-			   throw new Meteor.Error('unauthorized');
-            if(!id)
-                throw new Meteor.Error('invalid id');
-            PollsData.remove({
-                _id: id
-            });
+  			    throw new Meteor.Error('unauthorized');
+  		    if(!id)
+  		       throw new Meteor.Error('invalid id');
+  		    PollsData.remove({
+  		        _id : id
+  		    });
         },
         
-        totalPolls() {
-            return PollsData.find().count();
+        'polls.updatePoll'(id, pollAttributes){
+            PollsData.update(id, {
+                $set: {
+                    question: pollAttributes.question,
+                    options: pollAttributes.options
+                }    
+            });
+            
+            return id;
+        },
+        
+        'polls.totalPolls'(){
+            return PollsData.find().count();    
         }
     });
 }
