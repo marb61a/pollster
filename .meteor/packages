@@ -34,3 +34,5 @@ aldeed:collection2
 constellation:schema
 zimme:active-route
 react-meteor-data
+session
+u2622:persistent-session
