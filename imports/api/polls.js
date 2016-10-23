@@ -35,6 +35,16 @@ const pollsSchema = new SimpleSchema({
             }
         }
     },
+    username : {
+        type : String,
+        autoValue: function() {
+            if (this.isInsert) {
+                return Meteor.user().username;
+            }  else {
+                this.unset();  // Prevent user from supplying their own value
+            }
+        }
+    },
     createdAt : {
         type : Date,
         autoValue : function(){
@@ -83,6 +93,21 @@ if(Meteor.isServer){
             });
             
             return id;
+        },
+        
+        'polls.vote' : function(pollId, id){
+            PollsData.update({
+                _id : pollId,
+                "options.id": id
+            }, {
+                $inc : {
+                    totalVotes: 1,
+                    "options.$.votes":1
+                }
+            }, function(error){
+                if(error)
+                    console.log("error "+error);
+            });
         },
         
         'polls.totalPolls'(){
