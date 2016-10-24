@@ -3,22 +3,27 @@ import React, { Component, PropTypes } from 'react';
 
 export default class Option extends Component{
     perc(votes){
-        const totalVotes = this.props.totalVotes;
-        let options = this.props.options;
-        let maxValue = 0;
-        
-        options.forEach(function(el){
-            if(el.votes > maxValue)
-                maxValue = el.votes;
-        });
-        let perc = 100*votes/maxValue;
-        if(perc == undefined) perc = 0;
+        let perc;
+        if(this.props.maxVal == 0)
+            perc = 0;
+        else perc = 100*votes/this.props.maxVal;
         return perc + "%";
     }
     
+    setWidthBadge(){
+        const n = this.props.maxVal;
+        let digits = n.toString().length;
+        const width = 35 + digits*3; 
+        return {flexBasis: width+"px"};
+    }
+    
+    optionsSorted(){
+        const options = _.sortBy(this.props.options, (option) => option.votes);
+        return options.reverse();
+    }
+    
     renderOptions(){
-        let options = this.props.options;
-        const style = {fill:'grey'};
+        let options = this.optionsSorted();
         return options.map((option) => {
             <div className="option-item" key={option.index}>
                 <span className="badge badge-votes pull-right">
@@ -27,7 +32,7 @@ export default class Option extends Component{
                 <div className="bar">
                     <svg className="svg" width="100%" height="25">
                         <rect className="rec-bgd" width="100%" height="100%"  />
-                        <rect className="rec" style={style} width={this.perc(option.votes)} height="100%"  />
+                        <rect className="rec" width={this.perc(option.votes)} height="100%"  />
                     </svg>
                     <span className="option">
                         {option.option}
