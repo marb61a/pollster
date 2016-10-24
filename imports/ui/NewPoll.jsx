@@ -85,18 +85,42 @@ export default class NewPoll extends Component{
     
     addNewPoll(e){
         e.preventDefault();
+        const opts = OptionsData.find();
+        let options = [];
+        opts.forEach(function(item, i){
+            let option = {
+                index : i,
+                option: item.option,
+                id: item._id,
+                votes: 0
+            };
+            options.push(option);
+        });
+        
         const poll = {
             question : this.refs.questionInput.value.trim(),
-            options: ""//options
+            options : options
         };
-        const id = Meteor.call("polls.insertPoll", poll, function(error, result){
-            if(error){
-                console.log(error);
-            } else{
-                console.log("id from insert " + result);
-                console.log();
-            }
-        });
+        
+        if(this.props.route === "editPoll"){
+            const id = Meteor.call("polls.updatePoll", this.props.poll._id, poll, function(error, result){
+                if(error){
+                    console.log(error);
+                } else {
+                    FlowRouter.go("/viewPoll/"+result);
+                }
+            });
+        } else {
+            const id = Meteor.call("polls.insertPoll", poll, function(error, result){
+                if(error){
+                    console.log(error);
+                } else {
+                    console.log("id from insert " + result);
+                    OptionsData.remove({});
+                    FlowRouter.go("/viewPoll/"+result)
+                }
+            });
+        }
     }
     
     render(){
