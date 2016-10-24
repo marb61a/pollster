@@ -28,6 +28,7 @@ z = {
 }
 
 $large = 960px
+$med = 768px
 $very-small = 350px
 
 $content-top-normal = 60px
@@ -418,3 +419,29 @@ $content-top-normal = 60px
   display flex
   vertical-align: middle
   width 100%
+  
+.poll-view
+  margin top 20px
+  display flex
+  +below($med)
+    display block
+  .poll
+    min-width 380px
+    max-width 500px
+  .url
+    margin 20px
+    padding-right 20px
+    +below($med)
+      margin-left 0
+
+.panel-body
+  .option-item
+    display flex
+    justify-content space-between
+    .badge-holder
+      order 1
+      flex 0 0
+      height 18px
+      text-align center
+    .bar
+      flex 1
