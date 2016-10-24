@@ -16,6 +16,11 @@ export default class NewPoll extends Component{
             },
             hidden : false
         };
+        OptionsData.remove({});
+    }
+    
+    componentWillUnmount(){
+        this.state.subscription.optionsData.stop();
     }
     
     addOptionClasses(){
@@ -31,17 +36,31 @@ export default class NewPoll extends Component{
     hideAddOption(){
         if(OptionsData.find().count() >= MAX_OPTIONS){
             Bert.alert( 'You have reached the maximum number of options for this poll', 'info', 'growl-top-right' );
-            
             return true;
         }   
         
         return false;
     }
     
+    buttonLabel(){
+        if(this.props.route === "editPoll")
+            return "Edit Poll";
+        return "Create a new poll";
+    }
+    
     getOptions(){
-        if(OptionsData.find().count() < 2){
-            this.addOption("", 0);
-            this.addOption("", 1);
+        if(this.props.route === "Edit Poll"){
+            if(OptionsData.find().count() === 0) {
+                const options = this.props.poll.options;
+                options.forEach(function(item){
+                    OptionsData.insert({option: item.option, index:item.index });
+                });
+            }    
+        } else {
+            if(OptionsData.find().count() < 2) {
+                this.addOption("", 0);
+                this.addOption("", 1);
+            }
         }
         
         return OptionsData.find({}, {sort: {index: 1}}).fetch();

@@ -13,6 +13,7 @@ import ChangePassword from '../imports/ui/partials/changePassword.jsx';
 import ResetPassword from '../imports/ui/partials/resetPassword.jsx';
 import ViewPollContainer from '../imports/ui/containers/viewPollContainer.js';
 import EditPollContainer from '../imports/ui/containers/editPollContainer.js';
+import PostedPollContainer from '../imports/ui/containers/postedPollContainer.js';
 
 FlowRouter.route('/', {
     name: 'home',
@@ -67,6 +68,15 @@ FlowRouter.route('/editPoll/:id', {
         mount(MainLayout, {
             header: (<Header  />),
             content: (<EditPollContainer {...id} />)
+        });
+    }
+});
+
+FlowRouter.route('/poll/:id', {
+    name: 'pollPost',
+    action(id) {
+        mount(MainLayout, {
+            content: (<PostedPollContainer {...id} />)
         });
     }
 });

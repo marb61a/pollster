@@ -49,17 +49,10 @@ export default class App extends TrackerReact(Component){
     
     render(){
         return(
-            <div className="main-layout">
-                <header>
-                    <h1>Polls</h1>
-                </header>
+            <div className="">
                 <Polls polls={this.pollsData()} />
                 {this.showMoreButton()}
             </div>    
         );
     }
 }
-
-App.propTypes = {
-    polls : PropTypes.array.isRequired    
-};

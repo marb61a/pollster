@@ -5,7 +5,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 export default class Header extends Component{
     constructor(props){
         super(props);
-        this.state = {open: false};
+        this.state = {open : false, toggle : false};
     }
     
     classes(path){
