@@ -15,12 +15,12 @@ Accounts.ui.config({
 });
 
 export default class NewUser extends Component {
-    render() {
-        return (
-            <div className="signin">
-                <h2>Register</h2>
-                <Accounts.ui.LoginForm formState={ STATES.SIGN_UP }/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="signin">
+        <h2>Register</h2>
+        <Accounts.ui.LoginForm formState={ STATES.SIGN_UP }/>
+      </div>
+    );
+  }
 }

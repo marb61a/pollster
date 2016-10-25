@@ -1,6 +1,10 @@
 import PollsData from '/imports/api/polls.js';
 
-Meteor.publish('polls', function(options){
+Meteor.publish('userPolls', function() {
+    return PollsData.find({author: this.userId});
+});
+
+Meteor.publish('polls', function (options) {
     return PollsData.find({}, options);
 });
 

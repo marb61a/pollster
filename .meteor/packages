@@ -36,3 +36,4 @@ zimme:active-route
 react-meteor-data
 session
 u2622:persistent-session
+insecure

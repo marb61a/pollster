@@ -130,7 +130,7 @@ export default class Header extends Component{
                 <nav className="flex-nav">
                     <div className="header-section"> 
                         <div className="nav-item header-logo">
-                            <h1>Cool Polls</h1>
+                            <h1>Pollster</h1>
                         </div>
                     </div>
                     {this.isLoggedNav()}

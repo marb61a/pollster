@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 import { createContainer } from 'meteor/react-meteor-data'
 
-import  ViewPollHolder  from '../ViewPollHolder.jsx'
+import ViewPollHolder  from '../ViewPollHolder.jsx'
 import PollsData from '/imports/api/polls.js';
 
 export default EditPollContainer = createContainer((props) => {
