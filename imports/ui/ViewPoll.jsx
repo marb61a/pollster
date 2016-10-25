@@ -1,6 +1,20 @@
 import React, { Component, PropTypes } from 'react';
+import Clipboard from 'clipboard';
 
 export default class ViewPoll extends Component {
+    constructor(){
+        super();
+        const clipboard = new Clipboard('.btn-copy-link');
+        clipboard.on('success', function(e){
+            Bert.alert('The iFrame code was copied to the clipboard successfully!', 'info', 'growl-top-right' );
+            console.info('Action:', e.action);
+            console.info('Text:', e.text);
+            console.info('Trigger:', e.trigger);
+            
+            e.clearSelection();    
+        });
+    }
+    
     renderOptions(){
         let options = this.props.poll.options;
         console.log(options);
@@ -54,6 +68,9 @@ export default class ViewPoll extends Component {
                         <div className="panel-body iframe-code">
                             {this.embedCode()}
                         </div>
+                        <button className="btn-copy-link" data-clipboard-text={this.embedCode()}>
+                            Copy To Clipboard
+                        </button>
                     </div>
                 </div>
             </div>  
