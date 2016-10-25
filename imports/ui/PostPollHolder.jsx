@@ -11,6 +11,15 @@ export default class PostPollHolder extends Component{
         }    
     }
     
+    maxVal(){
+    let maxValue = 0;
+    this.props.poll.options.forEach(function(el){
+        if(el.votes > maxValue) 
+            maxValue = el.votes;
+    });
+        return maxValue;
+    }
+    
     render(){
         return(
             <div>
